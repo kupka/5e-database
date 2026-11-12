@@ -11,6 +11,7 @@ Rules:
   script stops.
 - Copies (features whose JSON text equals that of an earlier feature) are dropped.
 - Double dashes and em dashes become " - ".
+- Names in RENAMES get the prefix of their origin (last step).
 """
 import json
 import re
@@ -114,6 +115,7 @@ def split_by_table(p):
 SRD_TEXT = {}
 REMOVE = set()
 FIXES = {}
+RENAMES = {}
 # renamed entries for features the JSON splits into numbered copies: index of the kept copy -> (enum, name)
 MERGED = {}
 
@@ -333,7 +335,18 @@ for enum, name, desc in PREEXISTING_TEXTS:
     b = '                case Feat.DWARVEN_RESILIENCE:\n                    return "You have advantage'
     assert txt.count(b) == 1
     txt = txt.replace(b, '                case Feat.%s:\n                    return %s;\n' % (enum, cs(desc)) + b)
-open(TEXTS, 'w', newline='').write(txt)
+
+
+def rename(text):
+    for a, b in RENAMES.items():
+        assert not re.search(r'\b%s\b' % b, text), 'name already in use: ' + b
+        text = re.sub(r'\b%s\b' % a, b, text)
+    return text
+
+
+open(TEXTS, 'w', newline='').write(rename(txt))
+feats = open(FEATS, newline='').read()
+open(FEATS, 'w', newline='').write(rename(feats))
 
 print('racial added:', len(all_racial))
 print('class added:', sum(1 for e in all_class if e[1] is not None))

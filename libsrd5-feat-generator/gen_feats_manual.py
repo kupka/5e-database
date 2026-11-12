@@ -31,6 +31,17 @@ MERGED = {
     'channel-divinity-1-rest': ('CLERIC_CHANNEL_DIVINITY', 'Channel Divinity'),
 }
 
+# Names that are almost identical to another feat's name but mean something else get the
+# prefix of their origin. Applied as the last step, so it also covers feats that existed before.
+RENAMES = {
+    'BONUS_PROFICIENCIES': 'BARD_BONUS_PROFICIENCIES',  # vs. the Life Domain's Bonus Proficiency
+    'BONUS_PROFICIENCY': 'DIVINE_DOMAIN_BONUS_PROFICIENCY',
+    'CHANNEL_DIVINITY': 'PALADIN_CHANNEL_DIVINITY',  # vs. CLERIC_CHANNEL_DIVINITY
+    'UNARMORED_DEFENSE': 'BARBARIAN_UNARMORED_DEFENSE',  # vs. MONK_UNARMORED_DEFENSE
+    'FIGHTING_STYLE_GREAT_WEAPON_FIGHTING': 'PALADIN_FIGHTING_STYLE_GREAT_WEAPON_FIGHTING',  # differs from the fighter's
+    'SNEAK_ATTACK': 'ROGUE_SNEAK_ATTACK',  # vs. the monster feats SNEAK_ATTACK_2D6 and SNEAK_ATTACK_4D6
+}
+
 # Feats not found in the SRD 5.1
 REMOVE = {
     'AURA_IMPROVEMENTS',  # the SRD has no such feature; each aura says its range increases at 18th level
