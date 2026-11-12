@@ -20,8 +20,7 @@ descriptions in `FeatTextResource` (`libsrd5/ogl/TextResources.cs`).
 
 ## Usage
 
-The JSON is read in the layout of the current upstream 5e-database (`src/2014/en`), not the
-older layout of this fork's `main` branch.
+The JSON is read from `src/2014/en`.
 
 ```sh
 # SRD 5.1 (OGL) as text
